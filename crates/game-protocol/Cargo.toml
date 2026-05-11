@@ -1,0 +1,10 @@
+[package]
+name = "game-protocol"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Always compiled with serde — this crate's only job is wire types
+game-core = { path = "../game-core", features = ["serde"] }
+serde     = { version = "1", features = ["derive"] }
+uuid      = { version = "1", features = ["v4", "serde"] }

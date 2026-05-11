@@ -1,0 +1,16 @@
+[package]
+name = "game-core"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+# Enable when game-net or tests need serialization.
+# Keeps game-core free of serde in pure-logic contexts.
+serde = ["dep:serde", "uuid/serde"]
+
+[dependencies]
+thiserror = "1"
+uuid      = { version = "1", features = ["v4"] }
+rand      = "0.8"
+serde     = { version = "1", features = ["derive"], optional = true }

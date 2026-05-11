@@ -1,0 +1,14 @@
+[package]
+name = "game-server"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = "0.18.1"
+bevy_renet = "4.0.1"
+renet = "2.0.0"
+bincode = "3.0.0"
+serde = { version = "1", features = ["derive"] }
+
+game-core = { path = "../game-core" }
+game-protocol = { path = "../game-protocol" }

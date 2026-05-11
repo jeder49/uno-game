@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/game-core",
+    "crates/game-protocol",
+    "crates/game-server",
+    "crates/game-client",
+]
+
+[workspace.dependencies]
+serde       = { version = "1", features = ["derive"] }
+tokio       = { version = "1", features = ["full"] }
+axum        = { version = "0.7" }
+tokio-tungstenite = { version = "0.21" }
+bevy = { version = "0.18.1", features = ["bevy_remote", "experimental_bevy_ui_widgets", "experimental_bevy_feathers", "serialize"] }
+fluent      = { version = "0.16" }

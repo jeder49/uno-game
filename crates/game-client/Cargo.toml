@@ -1,0 +1,45 @@
+[package]
+name = "game-client"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "client"
+path = "src/main.rs"
+
+[dependencies]
+game-core         = { path = "../game-core", features = ["serde"] }
+game-protocol     = { path = "../game-protocol" }
+
+# Bevy 0.18 with the new feature collections — only pull in what a 2D UI game needs.
+bevy              = { version = "0.18.1", default-features = true, features = [
+    "bevy_winit",
+    "bevy_asset",
+    "bevy_ui",
+    "bevy_text",
+    "bevy_color",
+    "bevy_state",
+    #"bevy_input",
+    "x11",           # Linux window backend
+    "wayland",       # Linux Wayland
+    "multi_threaded",
+] }
+
+# Networking
+tokio             = { version = "1", features = ["rt-multi-thread", "time"] }
+tokio-tungstenite = "0.26"
+futures-util      = "0.3"
+serde_json        = "1"
+
+# Channel bridge between Bevy's main thread and the tokio network thread
+crossbeam-channel = "0.5"
+
+uuid = { version = "1", features = ["v4"] }
+
+# [dependencies]
+# Bevy 0.18.1 with modern UI and Remote Protocol features
+# bevy = { version = "0.18.1", features = ["bevy_remote", "experimental_bevy_ui_widgets", "experimental_bevy_feathers", "serialize"] }
+# game-core = { path = "../game-core", features = ["serde"] }
+# game-protocol = { path = "../game-protocol" }
+# serde = { version = "1", features = ["derive"] }
+# uuid = { version = "1", features = ["v4", "serde"] }
