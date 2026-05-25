@@ -63,6 +63,7 @@ impl Card {
 }
 
 // ── Deck ────────────────────────────────────────────────────────────────────
+// TODO: put Deck in it's own file
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Clone)]

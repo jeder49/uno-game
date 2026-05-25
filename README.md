@@ -17,6 +17,32 @@ cargo run -p game-client
 cargo run -p game-server
 ```
 
+## Roadmap
+
+- settings
+  - missing text field for player name
+  - missing browser for server ips
+  - update api button text
+  - the selected language should be marked
+- host
+  - text field for naming lobby
+  - a "create" and "back" button
+  - after creating you get in the actual lobby (where should be able to add ai or see the list of people and see the lobby code)
+  - and each player/ai should be able to be kicked/removed
+  - not ready button needed but a start button for the lobby owner
+  - the start button should actualy start a game
+  - all the ais that conected to the server should be shown in the lobbies to be able to select
+  - but it should be possible to connect with the ai directly to the lobby like a player
+  - also a default ai that chooses randomly should be hard coded in the game
+- join
+  - text field to enter the lobby code
+  - button "join" and "back"
+- main menu
+  - text is not translated with i18n (the text still says menu.settings)
+  - a button for local/single play is missing (where you can play against AI)
+
+## Project Structure
+
 ```
 .
 ├── game-client               | game client implementation

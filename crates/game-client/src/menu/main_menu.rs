@@ -7,6 +7,8 @@ use crate::{
 };
 use bevy::prelude::*;
 
+// #[derive(Component)]
+// struct LocalBtn;
 #[derive(Component)]
 struct HostBtn;
 #[derive(Component)]
@@ -88,6 +90,20 @@ fn on_host(
         }
     }
 }
+
+/*
+fn on_local(
+    q: Query<&Interaction, (Changed<Interaction>, With<JoinBtn>)>,
+    mut next: ResMut<NextState<AppState>>,
+    settings: Res<Settings>,
+) {
+    for i in &q {
+        if *i == Interaction::Pressed {
+            next.set(AppState::LocalLobby);
+        }
+    }
+}
+*/
 
 fn on_join(
     q: Query<&Interaction, (Changed<Interaction>, With<JoinBtn>)>,

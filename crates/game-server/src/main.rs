@@ -1,23 +1,33 @@
 mod lobby;
-mod network;
-mod server_state;
-mod systems;
+mod session;
 
-use bevy::prelude::*;
-use bevy_renet::RenetServerPlugin;
+use axum::{
+    Router,
+    extract::ws::WebSocket,
+    extract::{State, WebSocketUpgrade},
+    response::IntoResponse,
+    routing::get,
+};
+use std::sync::Arc;
+use tokio::net::TcpListener;
 
-use network::create_renet_server;
-use server_state::ServerState;
-use systems::*;
+use lobby::SharedLobby;
 
-fn main() {
-    App::new()
-        .add_plugins(MinimalPlugins)
-        .add_plugins(RenetServerPlugin)
-        .insert_resource(create_renet_server())
-        .insert_resource(ServerState::default())
-        .add_systems(Update, handle_server_events)
-        .add_systems(Update, receive_client_messages)
-        .add_systems(Update, send_game_updates)
-        .run();
+#[tokio::main]
+async fn main() {
+    let lobby = Arc::new(SharedLobby::new());
+
+    let app = Router::new().route("/", get(ws_handler)).with_state(lobby);
+
+    let addr = "127.0.0.1:9001";
+    println!("game-server listening on ws://{addr}");
+    let listener = TcpListener::bind(addr).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
+
+async fn ws_handler(
+    ws: WebSocketUpgrade,
+    State(lobby): State<Arc<SharedLobby>>,
+) -> impl IntoResponse {
+    ws.on_upgrade(move |socket| session::handle(socket, lobby))
 }
